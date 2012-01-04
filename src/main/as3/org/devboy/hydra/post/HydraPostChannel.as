@@ -22,7 +22,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.chat
+package org.devboy.hydra.post
 {
 	import org.devboy.hydra.commands.HydraCommandEvent;
 	import org.devboy.hydra.HydraChannel;
@@ -31,9 +31,9 @@ package org.devboy.hydra.chat
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
-	public class HydraChatChannel extends HydraChannel
+	public class HydraPostChannel extends HydraChannel
 	{
-		public function HydraChatChannel( hydraService : HydraService, channelId : String, withAuthorization : Boolean = false, autoConnect : Boolean = true )
+		public function HydraPostChannel( hydraService : HydraService, channelId : String, withAuthorization : Boolean = false, autoConnect : Boolean = true )
 		{
 			var groupSpecifier : GroupSpecifier = new GroupSpecifier(channelId);
 				groupSpecifier.serverChannelEnabled = true;
@@ -44,7 +44,7 @@ package org.devboy.hydra.chat
 
 		private function init() : void
 		{
-			hydraService.commandFactory.addCommandCreator(new ChatMessageCommandCreator());
+			hydraService.commandFactory.addCommandCreator(new PostMessageCommandCreator());
 			addEventListener(HydraCommandEvent.COMMAND_RECEIVED, commandEvent);
 		}
 
@@ -52,21 +52,21 @@ package org.devboy.hydra.chat
 		{
 			switch( event.command.type )
 			{
-				case ChatMessageCommand.TYPE:
-					handleChatMessage(event.command as ChatMessageCommand);
+				case PostMessageCommand.TYPE:
+					handlePostingMessage(event.command as PostMessageCommand);
 					break;	
 			}
 		}
 		
-		public function sendChatMessage( chatMessage : String ) : void
+		public function sendPostingMessage( postingMessage : String ) : void
 		{
-			sendCommand(new ChatMessageCommand(chatMessage));
-			dispatchEvent(new HydraChatEvent(HydraChatEvent.MESSAGE_SENT, chatMessage, hydraService.user));		
+			sendCommand(new PostMessageCommand(postingMessage));
+			dispatchEvent(new HydraPostEvent(HydraPostEvent.MESSAGE_SENT, postingMessage, hydraService.user));		
 		}
 
-		private function handleChatMessage(command : ChatMessageCommand) : void
+		private function handlePostingMessage(command : PostMessageCommand) : void
 		{
-			dispatchEvent( new HydraChatEvent(HydraChatEvent.MESSAGE_RECEIVED, command.chatMessage, userTracker.getUserByPeerId(command.senderPeerId) ) );	
+			dispatchEvent( new HydraPostEvent(HydraPostEvent.MESSAGE_RECEIVED, command.postMessage, userTracker.getUserByPeerId(command.senderPeerId) ) );	
 		}
 	}
 }

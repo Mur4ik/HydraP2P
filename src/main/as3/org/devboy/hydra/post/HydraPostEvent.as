@@ -22,32 +22,42 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.chat
+package org.devboy.hydra.post
 {
-	import org.devboy.hydra.commands.IHydraCommand;
-	import org.devboy.hydra.commands.IHydraCommandCreator;
+	import org.devboy.hydra.users.HydraUser;
+	import flash.events.Event;
 
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
-	public class ChatMessageCommandCreator implements IHydraCommandCreator
+	public class HydraPostEvent extends Event
 	{
-		public function createCommand(type : String, timestamp : Number, userId : String, senderPeerId : String, info : Object) : IHydraCommand
+		public static const MESSAGE_RECEIVED : String = "org.devboy.hydra.post.HydraPostEvent.MESSAGE_RECEIVED";
+		public static const MESSAGE_SENT : String = "org.devboy.hydra.post.HydraPostEvent.MESSAGE_SENT";
+		
+		private var _message : String;
+		private var _sender : HydraUser;
+		
+		public function HydraPostEvent(type : String, message : String, sender : HydraUser)
 		{
-			if( type != commandType )
-				throw new Error( "CommandTypes do not match!");
-			
-			var chatMessage : String = info.chatMessage;
-			var command : ChatMessageCommand = new ChatMessageCommand(chatMessage);
-				command.timestamp = timestamp;
-				command.userId = userId;
-				command.senderPeerId = senderPeerId;
-			return command;
+			_sender = sender;
+			_message = message;
+			super(type, false, false);
 		}
 
-		public function get commandType() : String
+		public function get message() : String
 		{
-			return ChatMessageCommand.TYPE;
+			return _message;
+		}
+
+		public function get sender() : HydraUser
+		{
+			return _sender;
+		}
+		
+		override public function clone() : Event
+		{
+			return new HydraPostEvent(type, message, sender);
 		}
 	}
 }

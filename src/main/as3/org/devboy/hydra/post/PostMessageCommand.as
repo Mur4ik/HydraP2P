@@ -22,34 +22,34 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.chat
+package org.devboy.hydra.post
 {
 	import org.devboy.hydra.commands.HydraCommand;
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
-	public class ChatMessageCommand extends HydraCommand
+	public class PostMessageCommand extends HydraCommand
 	{
-		public static const TYPE : String = "org.devboy.hydra.chat.ChatMessageCommand.TYPE";
+		public static const TYPE : String = "org.devboy.hydra.post.PostMessageCommand.TYPE";
 		
-		private var _chatMessage : String;
+		private var _postMessage : String;
 
-		public function ChatMessageCommand( chatMessage : String )
+		public function PostMessageCommand( chatMessage : String )
 		{
-			_chatMessage = chatMessage;
+			_postMessage = chatMessage;
 			super(TYPE);
 		}
 
 		override public function get info() : Object
 		{
 			var info : Object = new Object();
-				info.chatMessage = _chatMessage;
+				info.chatMessage = _postMessage;
 			return info;
 		}
 
-		public function get chatMessage() : String
+		public function get postMessage() : String
 		{
-			return _chatMessage;
+			return _postMessage;
 		}
 
 	}
