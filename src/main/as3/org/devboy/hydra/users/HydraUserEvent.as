@@ -31,8 +31,8 @@ package org.devboy.hydra.users
 	 */
 	public class HydraUserEvent extends Event
 	{
-		public static const USER_CONNECT : String = "org.devboy.hydra.HydraUserEvent.USER_CONNECT";
-		public static const USER_DISCONNECT : String = "org.devboy.hydra.HydraUserEvent.USER_DISCONNECT";
+		public static const USER_CONNECT : String = "userConnect";
+		public static const USER_DISCONNECT : String = "userDisconnect";
 		
 		private var _user : HydraUser;
 		

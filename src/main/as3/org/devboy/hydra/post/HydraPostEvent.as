@@ -32,8 +32,8 @@ package org.devboy.hydra.post
 	 */
 	public class HydraPostEvent extends Event
 	{
-		public static const MESSAGE_RECEIVED : String = "org.devboy.hydra.post.HydraPostEvent.MESSAGE_RECEIVED";
-		public static const MESSAGE_SENT : String = "org.devboy.hydra.post.HydraPostEvent.MESSAGE_SENT";
+		public static const MESSAGE_RECEIVED : String = "messageReceived";
+		public static const MESSAGE_SENT : String = "messageSent";
 		
 		private var _message : String;
 		private var _sender : HydraUser;

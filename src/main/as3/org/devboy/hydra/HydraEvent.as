@@ -31,13 +31,13 @@ package org.devboy.hydra
 	 */
 	public class HydraEvent extends Event
 	{
-		public static const SERVICE_CONNECT_SUCCESS : String = "org.devboy.hydra.HydraEvent.SERVICE_CONNECT_SUCCESS";
-		public static const SERVICE_CONNECT_FAILED : String = "org.devboy.hydra.HydraEvent.SERVICE_CONNECT_FAILED";
-		public static const SERVICE_CONNECT_CLOSED : String = "org.devboy.hydra.HydraEvent.SERVICE_CONNECT_CLOSED";
-		public static const SERVICE_CONNECT_REJECTED : String = "org.devboy.hydra.HydraEvent.SERVICE_CONNECT_REJECTED";
-		public static const CHANNEL_CONNECT_SUCCESS : String = "org.devboy.hydra.HydraEvent.CHANNEL_CONNECT_SUCCESS";
-		public static const CHANNEL_CONNECT_REJECTED : String = "org.devboy.hydra.HydraEvent.CHANNEL_CONNECT_REJECTE";
-		public static const CHANNEL_CONNECT_FAILED : String = "org.devboy.hydra.HydraEvent.CHANNEL_CONNECT_FAILED";
+		public static const SERVICE_CONNECT_SUCCESS : String = "serviceConnectSuccess";
+		public static const SERVICE_CONNECT_FAILED : String = "serviceConnectFailed";
+		public static const SERVICE_CONNECT_CLOSED : String = "serviceConnectClosed";
+		public static const SERVICE_CONNECT_REJECTED : String = "serviceConnectRejected";
+		public static const CHANNEL_CONNECT_SUCCESS : String = "channelConnectSuccess";
+		public static const CHANNEL_CONNECT_REJECTED : String = "channelConnectRejected";
+		public static const CHANNEL_CONNECT_FAILED : String = "channelConnectFailed";
 				
 		public function HydraEvent(type : String)
 		{

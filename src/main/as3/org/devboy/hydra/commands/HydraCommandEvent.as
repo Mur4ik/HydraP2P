@@ -31,8 +31,8 @@ package org.devboy.hydra.commands
 	 */
 	public class HydraCommandEvent extends Event
 	{
-		public static const COMMAND_SENT : String = "org.devboy.hydra.commands.HydraCommandEvent.COMMAND_SENT";
-		public static const COMMAND_RECEIVED : String = "org.devboy.hydra.commands.HydraCommandEvent.COMMAND_RECEIVED";
+		public static const COMMAND_SENT : String = "commandSent";
+		public static const COMMAND_RECEIVED : String = "commandReceived";
 		
 		private var _command : IHydraCommand;
 

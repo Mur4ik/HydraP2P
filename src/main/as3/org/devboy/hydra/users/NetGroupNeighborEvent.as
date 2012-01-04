@@ -31,8 +31,8 @@ package org.devboy.hydra.users
 	 */
 	public class NetGroupNeighborEvent extends Event
 	{
-		public static const NEIGHBOR_CONNECT : String = "org.devboy.hydra.NetGroupNeighborEvent.NEIGHBOR_CONNECT";
-		public static const NEIGHBOR_DISCONNECT : String = "org.devboy.hydra.NetGroupNeighborEvent.NEIGHBOR_DISCONNECT";
+		public static const NEIGHBOR_CONNECT : String = "neighborConnect";
+		public static const NEIGHBOR_DISCONNECT : String = "neighborDisconnect";
 		
 		private var _netGroupNeighbor : NetGroupNeighbor;
 
