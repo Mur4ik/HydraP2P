@@ -78,7 +78,10 @@ package org.devboy.hydra.users
 					removeNeighbor(event.netGroupNeighbor);
 					break;	
 			}
-			_hydraChannel.sendCommand( new PingCommand( _hydraChannel.hydraService.user.name ) );
+			// FIXME: Thinking that the PingCommand is being used to handle user volatility within the channel.
+			//			problem is, there's no data in the ping command indicating whether it's a user
+			//			connecting or disconnecting. For now commenting this out and will need to revisit.
+			//_hydraChannel.sendCommand( new PingCommand( _hydraChannel.hydraService.user.name ) );
 		}
 
 		private function removeNeighbor(netGroupNeighbor : NetGroupNeighbor) : void
@@ -119,11 +122,14 @@ package org.devboy.hydra.users
 		
 		public function getUserByPeerId( peerId : String ) : HydraUser
 		{
-			var user : HydraUser;
-			for each( user in _users )
-				if( user.neighborId && user.neighborId.peerId == peerId )
+			// FIXME: You can't have a user tracker based on Neighbor Announcements since as the group grows 
+			//			not everyone is a neighbor. For now just stubbing in "Other User", commenting out 
+			//			the for each logic, and always returning a user			
+			var user : HydraUser = new HydraUser( "Other User" );
+			//for each( user in _users )
+				//if( user.neighborId && user.neighborId.peerId == peerId )
 					return user;
-			return null;
+			//return null;
 		}
 
 		public function get users() : Vector.<HydraUser>
