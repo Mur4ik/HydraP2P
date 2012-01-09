@@ -140,15 +140,8 @@ package org.devboy.hydra
 		{
 			_channels = new Vector.<HydraChannel>();
 			_commandFactory = new HydraCommandFactory();
-			_commandFactory.addCommandCreator( new PingCommandCreator() );
 			_netConnection = new NetConnection();
 			_netConnection.addEventListener(NetStatusEvent.NET_STATUS, netStatus);
-			
-			var serviceChannelId : String = _serviceId + "/" + "serviceChannel";
-			var groupSpecifier : GroupSpecifier = new GroupSpecifier(serviceChannelId);
-				groupSpecifier.serverChannelEnabled = true;
-				groupSpecifier.postingEnabled = true;
-			_serviceChannel = new HydraChannel(this, serviceChannelId, groupSpecifier, false);	
 		}
 
 		private function netStatus(event : NetStatusEvent) : void
