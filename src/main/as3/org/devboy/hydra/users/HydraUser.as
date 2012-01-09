@@ -33,7 +33,7 @@ package org.devboy.hydra.users
 		private var _uniqueId : String;
 		private var _neighborId : NetGroupNeighbor;
 
-		public function HydraUser(name : String, uniqueId : String, neighborId : NetGroupNeighbor) 
+		public function HydraUser(name : String, uniqueId : String = null, neighborId : NetGroupNeighbor = null) 
 		{
 			_uniqueId = uniqueId;
 			_name = name;
