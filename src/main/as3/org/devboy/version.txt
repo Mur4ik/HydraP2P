@@ -1,0 +1,5 @@
+This is a fork of Devboy's HydraP2P: https://github.com/devboy/HydraP2P 
+
+You can find the fork here: https://github.com/realeyesmedia/HydraP2P
+
+Current version: 0.1.1
