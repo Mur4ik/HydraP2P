@@ -34,16 +34,16 @@ package org.devboy.hydra.post
 		
 		private var _postMessage : String;
 
-		public function PostMessageCommand( chatMessage : String )
+		public function PostMessageCommand( postMessage : String )
 		{
-			_postMessage = chatMessage;
+			_postMessage = postMessage;
 			super(TYPE);
 		}
 
 		override public function get info() : Object
 		{
 			var info : Object = new Object();
-				info.chatMessage = _postMessage;
+				info.postMessage = _postMessage;
 			return info;
 		}
 
