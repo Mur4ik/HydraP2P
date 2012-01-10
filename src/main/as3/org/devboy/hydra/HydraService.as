@@ -86,12 +86,13 @@ package org.devboy.hydra
 		private var _serviceId : String;
 		private var _serviceChannel : HydraChannel;
 		
-		public function HydraService(serviceId : String, rtmfpService : String)
+		public function HydraService(serviceId : String, rtmfpService : String, autoInit : Boolean = true)
 		{
 			_serviceId = serviceId;
 			_rtmfpService = rtmfpService;
 			super(this);
-			init();
+		
+			if(autoInit) init();
 		}
 		
 		public function connect( username : String ) : void
@@ -137,7 +138,7 @@ package org.devboy.hydra
 					channel.connect();
 		}
 
-		private function init() : void
+		public function init() : void
 		{
 			_channels = new Vector.<HydraChannel>();
 			_commandFactory = new HydraCommandFactory();
