@@ -31,6 +31,7 @@ package org.devboy.hydra
 	 */
 	public class HydraEvent extends Event
 	{
+		public static const SERVICE_INITIALIZED : String = "serviceInitialized";
 		public static const SERVICE_CONNECT_SUCCESS : String = "serviceConnectSuccess";
 		public static const SERVICE_CONNECT_FAILED : String = "serviceConnectFailed";
 		public static const SERVICE_CONNECT_CLOSED : String = "serviceConnectClosed";

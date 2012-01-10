@@ -24,15 +24,16 @@
  */
 package org.devboy.hydra
 {
-	import flash.net.GroupSpecifier;
-	import org.devboy.hydra.users.NetGroupNeighbor;
-	import org.devboy.hydra.users.HydraUser;
-	import org.devboy.hydra.commands.PingCommandCreator;
-	import org.devboy.hydra.commands.HydraCommandFactory;
-	import org.devboy.toolkit.net.NetStatusCodes;
-	import flash.events.NetStatusEvent;
-	import flash.net.NetConnection;
 	import flash.events.EventDispatcher;
+	import flash.events.NetStatusEvent;
+	import flash.net.GroupSpecifier;
+	import flash.net.NetConnection;
+	
+	import org.devboy.hydra.commands.HydraCommandFactory;
+	import org.devboy.hydra.commands.PingCommandCreator;
+	import org.devboy.hydra.users.HydraUser;
+	import org.devboy.hydra.users.NetGroupNeighbor;
+	import org.devboy.toolkit.net.NetStatusCodes;
 	
 	/**
 	 *  Dispatched when the <code>HydraService</code> connects 
@@ -142,6 +143,8 @@ package org.devboy.hydra
 			_commandFactory = new HydraCommandFactory();
 			_netConnection = new NetConnection();
 			_netConnection.addEventListener(NetStatusEvent.NET_STATUS, netStatus);
+			
+			dispatchEvent(new HydraEvent(HydraEvent.SERVICE_INITIALIZED));
 		}
 
 		private function netStatus(event : NetStatusEvent) : void
