@@ -28,7 +28,7 @@ package org.devboy.hydra.users
 	
 	import org.devboy.hydra.HydraChannel;
 	import org.devboy.hydra.packets.HydraPacketEvent;
-	import org.devboy.hydra.packets.PingPacket;
+	import org.devboy.hydra.packets.ping.PingPacket;
 
 	/**
 	 * @author Dominic Graefen - devboy.org

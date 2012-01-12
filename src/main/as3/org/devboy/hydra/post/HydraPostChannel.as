@@ -29,6 +29,8 @@ package org.devboy.hydra.post
 	import org.devboy.hydra.HydraChannel;
 	import org.devboy.hydra.HydraService;
 	import org.devboy.hydra.packets.HydraPacketEvent;
+	import org.devboy.hydra.packets.post.PostMessagePacket;
+	import org.devboy.hydra.packets.post.PostMessagePacketCreator;
 
 	/**
 	 * @author Dominic Graefen - devboy.org

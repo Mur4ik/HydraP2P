@@ -22,36 +22,32 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.post
+package org.devboy.hydra.packets.post
 {
-	import org.devboy.hydra.packets.HydraPacket;
+	import org.devboy.hydra.packets.IHydraPacket;
+	import org.devboy.hydra.packets.IHydraPacketCreator;
 
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
-	public class PostMessagePacket extends HydraPacket
+	public class PostMessagePacketCreator implements IHydraPacketCreator
 	{
-		public static const TYPE : String = "org.devboy.hydra.post.PostMessagePacket.TYPE";
-		
-		private var _postMessage : String;
-
-		public function PostMessagePacket( postMessage : String )
+		public function createPacket(type : String, timestamp : Number, userId : String, senderPeerId : String, info : Object) : IHydraPacket
 		{
-			_postMessage = postMessage;
-			super(TYPE);
+			if( type != packetType )
+				throw new Error( "PacketTypes do not match!");
+			
+			var postMessage : String = info.postMessage;
+			var packet : PostMessagePacket = new PostMessagePacket(postMessage);
+				packet.timestamp = timestamp;
+				packet.userId = userId;
+				packet.senderPeerId = senderPeerId;
+			return packet;
 		}
 
-		override public function get info() : Object
+		public function get packetType() : String
 		{
-			var info : Object = new Object();
-				info.postMessage = _postMessage;
-			return info;
+			return PostMessagePacket.TYPE;
 		}
-
-		public function get postMessage() : String
-		{
-			return _postMessage;
-		}
-
 	}
 }
