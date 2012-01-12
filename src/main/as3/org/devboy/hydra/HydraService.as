@@ -30,7 +30,7 @@ package org.devboy.hydra
 	
 	import org.devboy.hydra.packets.HydraPacketFactory;
 	import org.devboy.hydra.users.HydraUser;
-	import org.devboy.hydra.users.NetGroupNeighbor;
+	import org.devboy.toolkit.net.NetGroupNeighbor;
 	import org.devboy.toolkit.net.NetStatusCodes;
 	
 	/**

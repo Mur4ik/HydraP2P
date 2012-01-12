@@ -22,30 +22,34 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.users
+package org.devboy.toolkit.net
 {
+	import flash.events.Event;
+
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
-	public class NetGroupNeighbor
+	public class NetGroupNeighborEvent extends Event
 	{
-		private var _neighborId : String;
-		private var _peerId : String;
+		public static const NEIGHBOR_CONNECT : String = "neighborConnect";
+		public static const NEIGHBOR_DISCONNECT : String = "neighborDisconnect";
+		
+		private var _netGroupNeighbor : NetGroupNeighbor;
 
-		public function NetGroupNeighbor(neighborId : String, peerId : String)
+		public function NetGroupNeighborEvent(type : String, netGroupNeighbor : NetGroupNeighbor)
 		{
-			_peerId = peerId;
-			_neighborId = neighborId;
+			_netGroupNeighbor = netGroupNeighbor;
+			super(type, false, false);
 		}
 
-		public function get neighborId() : String
+		public function get netGroupNeighbor() : NetGroupNeighbor
 		{
-			return _neighborId;
+			return _netGroupNeighbor;
 		}
-
-		public function get peerId() : String
+		
+		override public function clone() : Event
 		{
-			return _peerId;
+			return new NetGroupNeighborEvent(type, netGroupNeighbor);
 		}
 	}
 }

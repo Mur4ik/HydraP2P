@@ -24,6 +24,8 @@
  */
 package org.devboy.hydra.users
 {
+	import org.devboy.toolkit.net.NetGroupNeighbor;
+
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */

@@ -33,8 +33,8 @@ package org.devboy.hydra
 	import org.devboy.hydra.packets.IHydraPacket;
 	import org.devboy.hydra.users.HydraUserEvent;
 	import org.devboy.hydra.users.HydraUserTracker;
-	import org.devboy.hydra.users.NetGroupNeighbor;
-	import org.devboy.hydra.users.NetGroupNeighborEvent;
+	import org.devboy.toolkit.net.NetGroupNeighbor;
+	import org.devboy.toolkit.net.NetGroupNeighborEvent;
 	import org.devboy.toolkit.net.NetStatusCodes;
 
 	/**

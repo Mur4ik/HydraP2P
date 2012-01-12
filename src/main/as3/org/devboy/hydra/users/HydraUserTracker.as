@@ -29,6 +29,8 @@ package org.devboy.hydra.users
 	import org.devboy.hydra.HydraChannel;
 	import org.devboy.hydra.packets.HydraPacketEvent;
 	import org.devboy.hydra.ping.PingPacket;
+	import org.devboy.toolkit.net.NetGroupNeighbor;
+	import org.devboy.toolkit.net.NetGroupNeighborEvent;
 
 	/**
 	 * @author Dominic Graefen - devboy.org
