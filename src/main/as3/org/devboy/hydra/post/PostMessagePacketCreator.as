@@ -22,16 +22,32 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.commands
+package org.devboy.hydra.post
 {
+	import org.devboy.hydra.packets.IHydraPacket;
+	import org.devboy.hydra.packets.IHydraPacketCreator;
+
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
-	public interface IHydraCommand
+	public class PostMessagePacketCreator implements IHydraPacketCreator
 	{
-		function get userId() : String;		function set userId( id : String ) : void;
-		function get type() : String;
-		function get timestamp() : Number;		function set timestamp( time : Number ) : void;
-		function get info() : Object;
+		public function createPacket(type : String, timestamp : Number, userId : String, senderPeerId : String, info : Object) : IHydraPacket
+		{
+			if( type != packetType )
+				throw new Error( "PacketTypes do not match!");
+			
+			var postMessage : String = info.postMessage;
+			var packet : PostMessagePacket = new PostMessagePacket(postMessage);
+				packet.timestamp = timestamp;
+				packet.userId = userId;
+				packet.senderPeerId = senderPeerId;
+			return packet;
+		}
+
+		public function get packetType() : String
+		{
+			return PostMessagePacket.TYPE;
+		}
 	}
 }

@@ -22,33 +22,14 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.commands
+package org.devboy.hydra.packets
 {
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
-	public class PingCommand extends HydraCommand
+	public interface IHydraPacketCreator
 	{
-		public static const TYPE : String = "org.devboy.hydra.commands.PingCommand.TYPE";
-		
-		private var _userName : String;
-
-		public function PingCommand( userName : String )
-		{
-			_userName = userName;
-			super(TYPE);
-		}
-
-		override public function get info() : Object
-		{
-			var info : Object = new Object();
-			info.userName = _userName;
-			return info;
-		}
-
-		public function get userName() : String
-		{
-			return _userName;
-		}
+		function get packetType() : String;
+		function createPacket( type : String, timestamp : Number, userId : String, senderPeerId : String, info : Object ) : IHydraPacket;
 	}
 }

@@ -24,10 +24,12 @@
  */
 package org.devboy.hydra.post
 {
-	import org.devboy.hydra.commands.HydraCommandEvent;
+	import flash.net.GroupSpecifier;
+	
 	import org.devboy.hydra.HydraChannel;
 	import org.devboy.hydra.HydraService;
-	import flash.net.GroupSpecifier;
+	import org.devboy.hydra.packets.HydraPacketEvent;
+
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
@@ -44,29 +46,29 @@ package org.devboy.hydra.post
 
 		private function init() : void
 		{
-			hydraService.commandFactory.addCommandCreator(new PostMessageCommandCreator());
-			addEventListener(HydraCommandEvent.COMMAND_RECEIVED, commandEvent);
+			hydraService.packetFactory.addPacketCreator(new PostMessagePacketCreator());
+			addEventListener(HydraPacketEvent.PACKET_RECEIVED, packetEvent);
 		}
 
-		private function commandEvent(event : HydraCommandEvent) : void
+		private function packetEvent(event : HydraPacketEvent) : void
 		{
-			switch( event.command.type )
+			switch( event.packet.type )
 			{
-				case PostMessageCommand.TYPE:
-					handlePostingMessage(event.command as PostMessageCommand);
+				case PostMessagePacket.TYPE:
+					handlePostingMessage(event.packet as PostMessagePacket);
 					break;	
 			}
 		}
 		
 		public function sendPostingMessage( postingMessage : String ) : void
 		{
-			sendCommand(new PostMessageCommand(postingMessage));
+			sendPacket(new PostMessagePacket(postingMessage));
 			dispatchEvent(new HydraPostEvent(HydraPostEvent.MESSAGE_SENT, postingMessage, hydraService.user));		
 		}
 
-		private function handlePostingMessage(command : PostMessageCommand) : void
+		private function handlePostingMessage(packet : PostMessagePacket) : void
 		{
-			dispatchEvent( new HydraPostEvent(HydraPostEvent.MESSAGE_RECEIVED, command.postMessage, userTracker.getUserByPeerId(command.senderPeerId) ) );	
+			dispatchEvent( new HydraPostEvent(HydraPostEvent.MESSAGE_RECEIVED, packet.postMessage, userTracker.getUserByPeerId(packet.senderPeerId) ) );	
 		}
 	}
 }

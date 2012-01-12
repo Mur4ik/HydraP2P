@@ -22,14 +22,62 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.commands
+package org.devboy.hydra.packets
 {
+
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
-	public interface IHydraCommandCreator
-	{
-		function get commandType() : String;
-		function createCommand( type : String, timestamp : Number, userId : String, senderPeerId : String, info : Object ) : IHydraCommand;
+	public class HydraPacket implements IHydraPacket
+	{	
+		private var _userId : String;
+		private var _type : String;
+		private var _timestamp : Number;
+		private var _senderPeerId : String;
+		
+		public function HydraPacket( type : String ) 
+		{
+			_type = type;	
+		}
+		
+		public function get userId() : String
+		{
+			return _userId;
+		}
+
+		public function get type() : String
+		{
+			return _type;
+		}
+
+		public function get timestamp() : Number
+		{
+			return _timestamp;
+		}
+
+		public function get info() : Object
+		{
+			throw new Error("Abstract method - needs to be overridden.");
+		}
+
+		public function set userId(id : String) : void
+		{
+			_userId = id;
+		}
+
+		public function set timestamp(time : Number) : void
+		{
+			_timestamp = time;
+		}
+
+		public function get senderPeerId() : String
+		{
+			return _senderPeerId;
+		}
+
+		public function set senderPeerId(senderPeerId : String) : void
+		{
+			_senderPeerId = senderPeerId;
+		}
 	}
 }

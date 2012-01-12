@@ -24,10 +24,11 @@
  */
 package org.devboy.hydra.users
 {
-	import org.devboy.hydra.commands.PingCommand;
-	import org.devboy.hydra.commands.HydraCommandEvent;
-	import org.devboy.hydra.HydraChannel;
 	import flash.events.EventDispatcher;
+	
+	import org.devboy.hydra.HydraChannel;
+	import org.devboy.hydra.packets.HydraPacketEvent;
+	import org.devboy.hydra.packets.PingPacket;
 
 	/**
 	 * @author Dominic Graefen - devboy.org
@@ -49,22 +50,22 @@ package org.devboy.hydra.users
 			_users = new Vector.<HydraUser>();
 			_hydraChannel.addEventListener(NetGroupNeighborEvent.NEIGHBOR_CONNECT, neighborEvent);
 			_hydraChannel.addEventListener(NetGroupNeighborEvent.NEIGHBOR_DISCONNECT, neighborEvent);
-			_hydraChannel.addEventListener(HydraCommandEvent.COMMAND_RECEIVED, commandEvent );
+			_hydraChannel.addEventListener(HydraPacketEvent.PACKET_RECEIVED, packetEvent );
 		}
 
-		private function commandEvent(event : HydraCommandEvent) : void
+		private function packetEvent(event : HydraPacketEvent) : void
 		{
-			switch( event.command.type )
+			switch( event.packet.type )
 			{
-				case PingCommand.TYPE:
-					handlePingCommand(event.command as PingCommand);
+				case PingPacket.TYPE:
+					handlePingPacket(event.packet as PingPacket);
 					break;
 			}
 		}
 
-		private function handlePingCommand(command : PingCommand) : void
+		private function handlePingPacket(packet : PingPacket) : void
 		{
-			var user : HydraUser = new HydraUser(command.userName, command.userId, new NetGroupNeighbor("", command.senderPeerId) );
+			var user : HydraUser = new HydraUser(packet.userName, packet.userId, new NetGroupNeighbor("", packet.senderPeerId) );
 			addUser(user);
 		}
 
@@ -78,10 +79,10 @@ package org.devboy.hydra.users
 					removeNeighbor(event.netGroupNeighbor);
 					break;	
 			}
-			// FIXME: Thinking that the PingCommand is being used to handle user volatility within the channel.
-			//			problem is, there's no data in the ping command indicating whether it's a user
+			// FIXME: Thinking that the PingPacket is being used to handle user volatility within the channel.
+			//			problem is, there's no data in the ping packet indicating whether it's a user
 			//			connecting or disconnecting. For now commenting this out and will need to revisit.
-			//_hydraChannel.sendCommand( new PingCommand( _hydraChannel.hydraService.user.name ) );
+			//_hydraChannel.sendPacket( new PingPacket( _hydraChannel.hydraService.user.name ) );
 		}
 
 		private function removeNeighbor(netGroupNeighbor : NetGroupNeighbor) : void

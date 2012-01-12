@@ -22,62 +22,36 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.commands
+package org.devboy.hydra.post
 {
+	import org.devboy.hydra.packets.HydraPacket;
 
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
-	public class HydraCommand implements IHydraCommand
-	{	
-		private var _userId : String;
-		private var _type : String;
-		private var _timestamp : Number;
-		private var _senderPeerId : String;
+	public class PostMessagePacket extends HydraPacket
+	{
+		public static const TYPE : String = "org.devboy.hydra.post.PostMessagePacket.TYPE";
 		
-		public function HydraCommand( type : String ) 
+		private var _postMessage : String;
+
+		public function PostMessagePacket( postMessage : String )
 		{
-			_type = type;	
-		}
-		
-		public function get userId() : String
-		{
-			return _userId;
+			_postMessage = postMessage;
+			super(TYPE);
 		}
 
-		public function get type() : String
+		override public function get info() : Object
 		{
-			return _type;
+			var info : Object = new Object();
+				info.postMessage = _postMessage;
+			return info;
 		}
 
-		public function get timestamp() : Number
+		public function get postMessage() : String
 		{
-			return _timestamp;
+			return _postMessage;
 		}
 
-		public function get info() : Object
-		{
-			throw new Error("Abstract method - needs to be overridden.");
-		}
-
-		public function set userId(id : String) : void
-		{
-			_userId = id;
-		}
-
-		public function set timestamp(time : Number) : void
-		{
-			_timestamp = time;
-		}
-
-		public function get senderPeerId() : String
-		{
-			return _senderPeerId;
-		}
-
-		public function set senderPeerId(senderPeerId : String) : void
-		{
-			_senderPeerId = senderPeerId;
-		}
 	}
 }

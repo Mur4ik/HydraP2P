@@ -26,11 +26,9 @@ package org.devboy.hydra
 {
 	import flash.events.EventDispatcher;
 	import flash.events.NetStatusEvent;
-	import flash.net.GroupSpecifier;
 	import flash.net.NetConnection;
 	
-	import org.devboy.hydra.commands.HydraCommandFactory;
-	import org.devboy.hydra.commands.PingCommandCreator;
+	import org.devboy.hydra.packets.HydraPacketFactory;
 	import org.devboy.hydra.users.HydraUser;
 	import org.devboy.hydra.users.NetGroupNeighbor;
 	import org.devboy.toolkit.net.NetStatusCodes;
@@ -85,7 +83,7 @@ package org.devboy.hydra
 		private var _usingServerlessRtmfp : Boolean;
 		private var _ipMulticastAddress : String;
 		private var _netConnection : NetConnection;
-		private var _commandFactory : HydraCommandFactory;
+		private var _packetFactory : HydraPacketFactory;
 		private var _user : HydraUser;
 		private var _channels : Vector.<HydraChannel>;
 		private var _serviceId : String;
@@ -160,7 +158,7 @@ package org.devboy.hydra
 		public function init() : void
 		{
 			_channels = new Vector.<HydraChannel>();
-			_commandFactory = new HydraCommandFactory();
+			_packetFactory = new HydraPacketFactory();
 			_netConnection = new NetConnection();
 			_netConnection.addEventListener(NetStatusEvent.NET_STATUS, netStatus);
 			
@@ -193,9 +191,9 @@ package org.devboy.hydra
 			return _netConnection;
 		}
 
-		public function get commandFactory() : HydraCommandFactory
+		public function get packetFactory() : HydraPacketFactory
 		{
-			return _commandFactory;
+			return _packetFactory;
 		}
 
 		public function get user() : HydraUser

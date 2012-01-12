@@ -22,29 +22,30 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.commands
+package org.devboy.hydra.packets
 {
+
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
-	public class PingCommandCreator implements IHydraCommandCreator
+	public class PingPacketCreator implements IHydraPacketCreator
 	{
-		public function createCommand(type : String, timestamp : Number, userId : String, senderPeerId:String, info : Object) : IHydraCommand
+		public function createPacket(type : String, timestamp : Number, userId : String, senderPeerId:String, info : Object) : IHydraPacket
 		{
-			if( type != commandType )
-				throw new Error( "CommandTypes do not match!");
+			if( type != packetType )
+				throw new Error( "PacketTypes do not match!");
 			
 			var userName : String = info.userName;
-			var command : PingCommand = new PingCommand(userName);
-				command.timestamp = timestamp;
-				command.userId = userId;
-				command.senderPeerId = senderPeerId;
-			return command;
+			var packet : PingPacket = new PingPacket(userName);
+				packet.timestamp = timestamp;
+				packet.userId = userId;
+				packet.senderPeerId = senderPeerId;
+			return packet;
 		}
 
-		public function get commandType() : String
+		public function get packetType() : String
 		{
-			return PingCommand.TYPE;
+			return PingPacket.TYPE;
 		}
 	}
 }

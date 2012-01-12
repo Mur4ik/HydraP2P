@@ -22,41 +22,41 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.commands
+package org.devboy.hydra.packets
 {
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
-	public class HydraCommandFactory
+	public class HydraPacketFactory
 	{
-		private var _creators : Vector.<IHydraCommandCreator>;
+		private var _creators : Vector.<IHydraPacketCreator>;
 		
-		public function HydraCommandFactory()
+		public function HydraPacketFactory()
 		{
 			init();
 		}
 
 		private function init() : void
 		{
-			_creators = new Vector.<IHydraCommandCreator>();
+			_creators = new Vector.<IHydraPacketCreator>();
 		}
 		
-		public function addCommandCreator( creator : IHydraCommandCreator ) : void
+		public function addPacketCreator( creator : IHydraPacketCreator ) : void
 		{
-			if( !containsCommandCreatorForType(creator.commandType) )
+			if( !containsPacketCreatorForType(creator.packetType) )
 				_creators.push(creator);
 		}
 		
-		private function containsCommandCreatorForType( type : String ) : Boolean
+		private function containsPacketCreatorForType( type : String ) : Boolean
 		{
-			var creator : IHydraCommandCreator;
+			var creator : IHydraPacketCreator;
 			for each(creator in _creators)
-				if( creator.commandType == type )
+				if( creator.packetType == type )
 					return true;
 			return false;
 		}
 		
-		public function removeCommandCreator( creator : IHydraCommandCreator ) : void
+		public function removePacketCreator( creator : IHydraPacketCreator ) : void
 		{
 			var i : int = 0;
 			const l : int = _creators.length;
@@ -70,12 +70,12 @@ package org.devboy.hydra.commands
 			}
 		}
 		
-		public function createCommand( type : String, timestamp : Number, userId : String, senderPeerId : String, info : Object ) : IHydraCommand
+		public function createPacket( type : String, timestamp : Number, userId : String, senderPeerId : String, info : Object ) : IHydraPacket
 		{
-			var creator : IHydraCommandCreator;
+			var creator : IHydraPacketCreator;
 			for each(creator in _creators)
-				if( creator.commandType == type )
-					return creator.createCommand(type, timestamp, userId, senderPeerId, info);
+				if( creator.packetType == type )
+					return creator.createPacket(type, timestamp, userId, senderPeerId, info);
 			return null;
 		}
 	}

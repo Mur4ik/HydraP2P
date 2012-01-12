@@ -22,34 +22,34 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.commands
+package org.devboy.hydra.packets
 {
-	import flash.events.Event;
 
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
-	public class HydraCommandEvent extends Event
+	public class PingPacket extends HydraPacket
 	{
-		public static const COMMAND_SENT : String = "commandSent";
-		public static const COMMAND_RECEIVED : String = "commandReceived";
+		public static const TYPE : String = "org.devboy.hydra.packets.PingPacket.TYPE";
 		
-		private var _command : IHydraCommand;
+		private var _userName : String;
 
-		public function HydraCommandEvent(type : String, command : IHydraCommand)
+		public function PingPacket( userName : String )
 		{
-			_command = command;
-			super(type, false, false);
+			_userName = userName;
+			super(TYPE);
 		}
 
-		public function get command() : IHydraCommand
+		override public function get info() : Object
 		{
-			return _command;
+			var info : Object = new Object();
+			info.userName = _userName;
+			return info;
 		}
-		
-		override public function clone() : Event
+
+		public function get userName() : String
 		{
-			return new HydraCommandEvent(type, command);
+			return _userName;
 		}
 	}
 }

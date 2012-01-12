@@ -24,18 +24,18 @@
  */
 package org.devboy.hydra
 {
-	import org.devboy.hydra.users.HydraUserEvent;
-	import org.devboy.hydra.users.HydraUserTracker;
-	import org.devboy.hydra.commands.HydraCommandEvent;
-	import org.devboy.hydra.commands.IHydraCommand;
-	import org.devboy.hydra.users.NetGroupNeighbor;
-	import org.devboy.hydra.users.NetGroupNeighborEvent;
-	import org.devboy.toolkit.net.NetStatusCodes;
-
 	import flash.events.EventDispatcher;
 	import flash.events.NetStatusEvent;
 	import flash.net.GroupSpecifier;
 	import flash.net.NetGroup;
+	
+	import org.devboy.hydra.packets.HydraPacketEvent;
+	import org.devboy.hydra.packets.IHydraPacket;
+	import org.devboy.hydra.users.HydraUserEvent;
+	import org.devboy.hydra.users.HydraUserTracker;
+	import org.devboy.hydra.users.NetGroupNeighbor;
+	import org.devboy.hydra.users.NetGroupNeighborEvent;
+	import org.devboy.toolkit.net.NetStatusCodes;
 
 	/**
 	 *  Dispatched when the <code>HydraChannel</code> connects 
@@ -70,23 +70,23 @@ package org.devboy.hydra
 	/**
 	 *  Dispatched when the <code>HydraChannel</code> sends a message. 
 	 *
-	 *  @eventType org.devboy.hydra.commands.HydraCommandEvent.COMMAND_SENT
+	 *  @eventType org.devboy.hydra.packets.HydraPacketEvent.PACKET_SENT
 	 */
-	[Event(name="commandSent", type="org.devboy.hydra.commands.HydraCommandEvent")]
+	[Event(name="packetSent", type="org.devboy.hydra.packets.HydraPacketEvent")]
 	
 	/**
 	 *  Dispatched when the <code>HydraChannel</code> sends a message. 
 	 *
-	 *  @eventType org.devboy.hydra.commands.HydraCommandEvent.COMMAND_RECEIVED
+	 *  @eventType org.devboy.hydra.packets.HydraPacketEvent.PACKET_RECEIVED
 	 */
-	[Event(name="commandReceived", type="org.devboy.hydra.commands.HydraCommandEvent")]
+	[Event(name="packetReceived", type="org.devboy.hydra.packets.HydraPacketEvent")]
 	
 	/**
 	 *  Dispatched when the <code>HydraChannel</code> sends a message. 
 	 *
-	 *  @eventType org.devboy.hydra.commands.HydraCommandEvent.COMMAND_RECEIVED
+	 *  @eventType org.devboy.hydra.packets.HydraPacketEvent.PACKET_RECEIVED
 	 */
-	[Event(name="commandReceived", type="org.devboy.hydra.commands.HydraCommandEvent")]
+	[Event(name="packetReceived", type="org.devboy.hydra.packets.HydraPacketEvent")]
 	
 	/**
 	 *  Dispatched when a user joins the <code>HydraChannel</code>. 
@@ -185,35 +185,35 @@ package org.devboy.hydra
 					dispatchEvent(new NetGroupNeighborEvent(NetGroupNeighborEvent.NEIGHBOR_DISCONNECT, new NetGroupNeighbor(event.info.neighbor as String, event.info.peerID as String)));
 					break;
 				case NetStatusCodes.NETGROUP_POSTING_NOTIFY:
-					receiveCommand(event.info.message);
+					receivePacket(event.info.message);
                     break;
 			}
 		}
 		
-		private function receiveCommand( message : Object ) : void
+		private function receivePacket( message : Object ) : void
 		{
 			var userId : String = message.userId;
 			var type : String = message.type;
 			var timestamp : Number = message.timestamp;
 			var info : Object = message.info;
 			var senderPeerId : String = message.senderPeerId;
-			var command : IHydraCommand = _hydraService.commandFactory.createCommand(type, timestamp, userId, senderPeerId, info);
-			if( command )
-				dispatchEvent( new HydraCommandEvent(HydraCommandEvent.COMMAND_RECEIVED, command));		
+			var packet : IHydraPacket = _hydraService.packetFactory.createPacket(type, timestamp, userId, senderPeerId, info);
+			if( packet )
+				dispatchEvent( new HydraPacketEvent(HydraPacketEvent.PACKET_RECEIVED, packet));		
 		}
 		
-		public function sendCommand( command : IHydraCommand ) : void
+		public function sendPacket( packet : IHydraPacket ) : void
 		{
-			command.userId = _hydraService.user.uniqueId;
-			command.timestamp = new Date().getTime();
+			packet.userId = _hydraService.user.uniqueId;
+			packet.timestamp = new Date().getTime();
 			var message : Object = new Object();
-			message.userId = command.userId;
-			message.type = command.type;
-			message.timestamp = command.timestamp;
-			message.info = command.info;
+			message.userId = packet.userId;
+			message.type = packet.type;
+			message.timestamp = packet.timestamp;
+			message.info = packet.info;
 			message.senderPeerId = _hydraService.netConnection.nearID;
 			_netGroup.post(message);
-			dispatchEvent( new HydraCommandEvent(HydraCommandEvent.COMMAND_SENT, command));
+			dispatchEvent( new HydraPacketEvent(HydraPacketEvent.PACKET_SENT, packet));
 		}
 
 		private function getEventTypeForNetGroup(infoCode : String) : String
