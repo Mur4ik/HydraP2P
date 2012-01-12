@@ -78,7 +78,12 @@ package org.devboy.hydra
 	 */
 	public class HydraService extends EventDispatcher
 	{
+		// Defaulting to site-local range: http://www.iana.org/assignments/multicast-addresses/multicast-addresses.xml
+		public static const DEFAULT_IP_MULTICAST_ADDRESS:String =  "239.255.255.1:30000";		
+		
 		private var _rtmfpService : String;
+		private var _usingServerlessRtmfp : Boolean;
+		private var _ipMulticastAddress : String;
 		private var _netConnection : NetConnection;
 		private var _commandFactory : HydraCommandFactory;
 		private var _user : HydraUser;
@@ -86,10 +91,14 @@ package org.devboy.hydra
 		private var _serviceId : String;
 		private var _serviceChannel : HydraChannel;
 		
-		public function HydraService(serviceId : String, rtmfpService : String, autoInit : Boolean = true)
+		public function HydraService(serviceId : String, rtmfpService : String, ipMulticastAddress:String = null, autoInit : Boolean = true)
 		{
 			_serviceId = serviceId;
 			_rtmfpService = rtmfpService;
+			
+			rtmfpService.toLowerCase() == "rtmfp:"? _usingServerlessRtmfp = true : _usingServerlessRtmfp = false;
+			ipMulticastAddress? _ipMulticastAddress = ipMulticastAddress : _ipMulticastAddress = DEFAULT_IP_MULTICAST_ADDRESS;
+			
 			super(this);
 		
 			if(autoInit) init();
@@ -120,6 +129,16 @@ package org.devboy.hydra
 		{
 			return _netConnection.connected;
 		}
+		
+		public function get usingServerlessRtmfp() : Boolean
+		{
+			return _usingServerlessRtmfp;
+		}
+		
+		public function get ipMulticastAddress() : String
+		{
+			return _ipMulticastAddress;
+		}		
 		
 		public function addChannel( channel : HydraChannel ) : void
 		{

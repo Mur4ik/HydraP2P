@@ -121,6 +121,13 @@ package org.devboy.hydra
 			_autoConnect = autoConnect;
 			_withAuthorization = withAuthorization;
 			_specifier = specifier;
+			
+			if(hydraService.usingServerlessRtmfp)
+			{
+				_specifier.addIPMulticastAddress(hydraService.ipMulticastAddress);
+				_specifier.ipMulticastMemberUpdatesEnabled = true;
+			}
+			
 			_hydraService = hydraService;
 			_channelId = channelId;
 			super(this);
