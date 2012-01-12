@@ -22,7 +22,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.packets.ping
+package org.devboy.hydra.ping
 {
 	import org.devboy.hydra.packets.IHydraPacket;
 	import org.devboy.hydra.packets.IHydraPacketCreator;

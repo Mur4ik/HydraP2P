@@ -22,32 +22,35 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package org.devboy.hydra.packets.post
+package org.devboy.hydra.ping
 {
-	import org.devboy.hydra.packets.IHydraPacket;
-	import org.devboy.hydra.packets.IHydraPacketCreator;
+	import org.devboy.hydra.packets.HydraPacket;
 
 	/**
 	 * @author Dominic Graefen - devboy.org
 	 */
-	public class PostMessagePacketCreator implements IHydraPacketCreator
+	public class PingPacket extends HydraPacket
 	{
-		public function createPacket(type : String, timestamp : Number, userId : String, senderPeerId : String, info : Object) : IHydraPacket
+		public static const TYPE : String = "org.devboy.hydra.packets.ping.PingPacket.TYPE";
+		
+		private var _userName : String;
+
+		public function PingPacket( userName : String )
 		{
-			if( type != packetType )
-				throw new Error( "PacketTypes do not match!");
-			
-			var postMessage : String = info.postMessage;
-			var packet : PostMessagePacket = new PostMessagePacket(postMessage);
-				packet.timestamp = timestamp;
-				packet.userId = userId;
-				packet.senderPeerId = senderPeerId;
-			return packet;
+			_userName = userName;
+			super(TYPE);
 		}
 
-		public function get packetType() : String
+		override public function get info() : Object
 		{
-			return PostMessagePacket.TYPE;
+			var info : Object = new Object();
+			info.userName = _userName;
+			return info;
+		}
+
+		public function get userName() : String
+		{
+			return _userName;
 		}
 	}
 }
