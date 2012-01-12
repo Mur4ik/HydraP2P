@@ -31,7 +31,7 @@ package org.devboy.hydra.ping
 	 */
 	public class PingPacket extends HydraPacket
 	{
-		public static const TYPE : String = "org.devboy.hydra.packets.ping.PingPacket.TYPE";
+		public static const TYPE : String = "org.devboy.hydra.ping.PingPacket.TYPE";
 		
 		private var _userName : String;
 
