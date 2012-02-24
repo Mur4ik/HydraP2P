@@ -126,7 +126,17 @@ package org.devboy.hydra
 			{
 				_specifier.addIPMulticastAddress(hydraService.ipMulticastAddress);
 				_specifier.ipMulticastMemberUpdatesEnabled = true;
+				_specifier.serverChannelEnabled = false;
 			}
+			else
+			{
+				// since we're not using serverless let's bootstrap
+				_specifier.serverChannelEnabled = true;
+			}
+			
+			// let's always enable posting and routing
+			_specifier.postingEnabled = true;
+			_specifier.routingEnabled = true;
 			
 			_hydraService = hydraService;
 			_channelId = channelId;
