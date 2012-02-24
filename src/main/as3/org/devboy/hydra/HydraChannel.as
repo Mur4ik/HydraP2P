@@ -187,6 +187,9 @@ package org.devboy.hydra
 				case NetStatusCodes.NETGROUP_POSTING_NOTIFY:
 					receivePacket(event.info.message);
                     break;
+				case NetStatusCodes.NETGROUP_ROUTING_SENDTO_NOTIFY:
+					receivePacket(event.info.message);
+					break;				
 			}
 		}
 		
@@ -212,7 +215,19 @@ package org.devboy.hydra
 			message.timestamp = packet.timestamp;
 			message.info = packet.info;
 			message.senderPeerId = _hydraService.netConnection.nearID;
-			_netGroup.post(message);
+			
+			// We check to see if netgroup neighbors are 13 or less. If so and we've decided to use routing, 
+			// then we route. Faster than post in a fully meshed group.
+			// See: http://tv.adobe.com/watch/max-2011-develop/advanced-p2p-with-rtmfp-tips-and-tricks/
+			if( _hydraService.useRoutingWhenFullyMeshed 
+				&& ( _netGroup.neighborCount < 13 && _netGroup.estimatedMemberCount < 14 ) )
+			{	
+				_netGroup.sendToAllNeighbors(message);
+			}
+			else
+			{	
+				_netGroup.post(message);
+			}	
 			dispatchEvent( new HydraPacketEvent(HydraPacketEvent.PACKET_SENT, packet));
 		}
 

@@ -41,6 +41,7 @@ package org.devboy.toolkit.net
         public static const NETGROUP_REPLICATION_FETCH_RESULT : String = "NetGroup.Replication.Fetch.Result";
         public static const NETGROUP_REPLICATION_FETCH_REQUEST : String = "NetGroup.Replication.Request";
         public static const NETGROUP_POSTING_NOTIFY : String = "NetGroup.Posting.Notify";
+		public static const NETGROUP_ROUTING_SENDTO_NOTIFY : String = "NetGroup.SendTo.Notify";
         public static const NETGROUP_NEIGHBOUR_CONNECT : String = "NetGroup.Neighbor.Connect";
         public static const NETGROUP_NEIGHBOUR_DISCONNECT : String = "NetGroup.Neighbor.Disconnect"; 
     }

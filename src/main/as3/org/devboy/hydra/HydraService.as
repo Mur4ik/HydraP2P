@@ -81,6 +81,7 @@ package org.devboy.hydra
 		
 		private var _rtmfpService : String;
 		private var _usingServerlessRtmfp : Boolean;
+		private var _useRoutingWhenFullyMeshed : Boolean;
 		private var _ipMulticastAddress : String;
 		private var _netConnection : NetConnection;
 		private var _packetFactory : HydraPacketFactory;
@@ -89,13 +90,18 @@ package org.devboy.hydra
 		private var _serviceId : String;
 		private var _serviceChannel : HydraChannel;
 		
-		public function HydraService(serviceId : String, rtmfpService : String, ipMulticastAddress:String = null, autoInit : Boolean = true)
+		public function HydraService(	serviceId : String, 
+										rtmfpService : String, 
+										ipMulticastAddress:String = null, 
+										autoInit : Boolean = true, 
+										useRoutingWhenFullyMeshed : Boolean = true )
 		{
 			_serviceId = serviceId;
 			_rtmfpService = rtmfpService;
 			
 			rtmfpService.toLowerCase() == "rtmfp:"? _usingServerlessRtmfp = true : _usingServerlessRtmfp = false;
 			ipMulticastAddress? _ipMulticastAddress = ipMulticastAddress : _ipMulticastAddress = DEFAULT_IP_MULTICAST_ADDRESS;
+			this.useRoutingWhenFullyMeshed = useRoutingWhenFullyMeshed;
 			
 			super(this);
 		
@@ -121,22 +127,7 @@ package org.devboy.hydra
 		{
 			if( connected )
 				_netConnection.close();	
-		}
-		
-		public function get connected() : Boolean
-		{
-			return _netConnection.connected;
-		}
-		
-		public function get usingServerlessRtmfp() : Boolean
-		{
-			return _usingServerlessRtmfp;
-		}
-		
-		public function get ipMulticastAddress() : String
-		{
-			return _ipMulticastAddress;
-		}		
+		}	
 		
 		public function addChannel( channel : HydraChannel ) : void
 		{
@@ -214,6 +205,30 @@ package org.devboy.hydra
 		public function get serviceChannel() : HydraChannel
 		{
 			return _serviceChannel;
+		}
+		
+		public function get connected() : Boolean
+		{
+			return _netConnection.connected;
+		}
+		
+		public function get usingServerlessRtmfp() : Boolean
+		{
+			return _usingServerlessRtmfp;
+		}
+		
+		public function get ipMulticastAddress() : String
+		{
+			return _ipMulticastAddress;
+		}	
+
+		public function get useRoutingWhenFullyMeshed():Boolean
+		{
+			return _useRoutingWhenFullyMeshed;
+		}
+		public function set useRoutingWhenFullyMeshed( value:Boolean ):void
+		{
+			_useRoutingWhenFullyMeshed = value;
 		}
 	}
 }
