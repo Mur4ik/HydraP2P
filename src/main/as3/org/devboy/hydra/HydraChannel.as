@@ -172,9 +172,10 @@ package org.devboy.hydra
             return netGroup.addMemberHint(peerID);
         }
 
-		private function netStatus(event : NetStatusEvent) : void
+		protected function netStatus(event : NetStatusEvent) : void
 		{
 			var infoCode : String = event.info.code;
+			dispatchEvent( event ); //REMOVE
 			switch (infoCode)
 			{
 				case NetStatusCodes.NETGROUP_CONNECT_SUCCESS:
@@ -184,7 +185,7 @@ package org.devboy.hydra
 					{
 						_connected = infoCode == NetStatusCodes.NETGROUP_CONNECT_SUCCESS;
 						_userTracker.addUser(_hydraService.user);
-						dispatchEvent(new HydraEvent(getEventTypeForNetGroup(infoCode)));
+						dispatchEvent(new HydraEvent(getEventTypeForNetGroup(infoCode))); //REMOVE
 						_hydraService.netConnection.removeEventListener(NetStatusEvent.NET_STATUS, netStatus);
 					}
 					break;
@@ -203,7 +204,7 @@ package org.devboy.hydra
 			}
 		}
 		
-		private function receivePacket( message : Object ) : void
+		protected function receivePacket( message : Object ) : void
 		{
 			var userId : String = message.userId;
 			var type : String = message.type;
@@ -229,15 +230,15 @@ package org.devboy.hydra
 			// We check to see if netgroup neighbors are 13 or less. If so and we've decided to use routing, 
 			// then we route. Faster than post in a fully meshed group.
 			// See: http://tv.adobe.com/watch/max-2011-develop/advanced-p2p-with-rtmfp-tips-and-tricks/
-			if( _hydraService.useRoutingWhenFullyMeshed 
+			/*if( _hydraService.useRoutingWhenFullyMeshed 
 				&& ( _netGroup.neighborCount < 13 && _netGroup.estimatedMemberCount < 14 ) )
 			{	
 				_netGroup.sendToAllNeighbors(message);
 			}
 			else
-			{	
+			{	*/
 				_netGroup.post(message);
-			}	
+			//}	
 			dispatchEvent( new HydraPacketEvent(HydraPacketEvent.PACKET_SENT, packet));
 		}
 
