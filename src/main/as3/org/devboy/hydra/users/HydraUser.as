@@ -46,10 +46,22 @@ package org.devboy.hydra.users
 		{
 			return _name;
 		}
+		
+		public function set name(value : String):void
+		{
+			//Added in setter to allow for serialization
+			_name = value;
+		}
 
 		public function get uniqueId() : String
 		{
 			return _uniqueId;
+		}
+		
+		public function set uniqueId(value : String):void
+		{
+			//Added in setter to allow for serialization
+			_uniqueId = value;
 		}
 
 		public function get neighborId() : NetGroupNeighbor
