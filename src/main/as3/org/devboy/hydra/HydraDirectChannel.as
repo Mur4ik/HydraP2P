@@ -59,12 +59,13 @@ package org.devboy.hydra
 		override protected function netStatus( event : NetStatusEvent ) : void
 		{
 			var infoCode : String = event.info.code;
+			trace( infoCode + " in HydraDirectChannel" );
 			//If we've received a directly routed message, check to see if it is for us. If not, pass it on.
 			if( infoCode == NetStatusCodes.NETGROUP_ROUTING_SENDTO_NOTIFY )
 			{
-				if( event.info.fromLocal )
+				if( event.info.fromLocal || !event.info.message.hasOwnProperty( 'destination' ) )
 				{
-					trace( infoCode + " in HydraDirectChannel" );
+					trace( infoCode + " is from Local in HydraDirectChannel" );
 					dispatchEvent( event );
 					receivePacket( event.info.message );
 				}
