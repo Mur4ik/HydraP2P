@@ -146,10 +146,15 @@ package org.devboy.hydra
 
 		private function init() : void
 		{
+			initUserTracker()
+			_hydraService.addChannel(this);
+		}
+		
+		protected function initUserTracker():void
+		{
 			_userTracker = new HydraUserTracker(this);
 			_userTracker.addEventListener(HydraUserEvent.USER_CONNECT, dispatchEvent);
 			_userTracker.addEventListener(HydraUserEvent.USER_DISCONNECT, dispatchEvent);
-			_hydraService.addChannel(this);
 		}
 
 		public function connect() : void
